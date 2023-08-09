@@ -1,3 +1,16 @@
 button.submitFormBtn{
   right: 0;
 }
+
+.add-form-btn{
+  display: flex;
+  column-gap: 5px;
+}
+
+.delete-form-btn{
+  color: grey;
+}
+
+.delete-form-btn:hover{
+  color: red;
+}

@@ -58,6 +58,22 @@ function App() {
     ]);
   };
 
+  const handleOnClickRemoveForm = (id) => {
+    let previousId;
+    setFormsData((prevState) =>
+      prevState.filter((formData, index) => {
+        // previousId = formsData[index - 1].id;
+        if (formData.id === id) {
+          previousId = formsData[index - 1]?.id;
+          console.log(previousId);
+        }
+        return formData.id !== id;
+      })
+    );
+
+    setActiveForm(previousId);
+  };
+
   const errorHandler = () =>
     formsData.map((formData, index) => {
       const { id, firstName, lastName, email, phoneNumber, password } =
@@ -111,6 +127,7 @@ function App() {
               index={index}
               activeForm={activeForm}
               handleActiveForm={handleActiveForm}
+              handleOnClickRemoveForm={handleOnClickRemoveForm}
             />
           ))}
           <li className="nav-item">
