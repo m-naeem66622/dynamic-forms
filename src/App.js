@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import NavButton from "./components/NavButton";
 import NavTabPane from "./components/NavTabPane";
@@ -59,19 +59,17 @@ function App() {
   };
 
   const handleOnClickRemoveForm = (id) => {
-    let previousId;
-    setFormsData((prevState) =>
-      prevState.filter((formData, index) => {
-        // previousId = formsData[index - 1].id;
-        if (formData.id === id) {
-          previousId = formsData[index - 1]?.id;
-          console.log(previousId);
-        }
-        return formData.id !== id;
-      })
-    );
+    let currentIndex = formsData.findIndex((formData) => formData.id === id);
 
-    setActiveForm(previousId);
+    if (currentIndex === 0) {
+      setActiveForm(formsData[1].id);
+    } else {
+      setActiveForm(formsData[currentIndex - 1].id);
+    }
+
+    setFormsData((prevState) =>
+      prevState.filter((formData) => formData.id !== id)
+    );
   };
 
   const errorHandler = () =>
@@ -95,7 +93,11 @@ function App() {
         obj.lastName = true;
       }
 
-      if (!/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/.test(email.trim())) {
+      if (
+        !/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(
+          email.trim()
+        )
+      ) {
         obj.email = true;
       }
 

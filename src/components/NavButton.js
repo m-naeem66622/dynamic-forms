@@ -1,4 +1,12 @@
-function NavButton({ formData, activeForm, index, handleOnClickRemoveForm }) {
+function NavButton(props) {
+  const {
+    formData,
+    activeForm,
+    index,
+    handleOnClickRemoveForm,
+    handleActiveForm,
+  } = props;
+
   return (
     <li className="nav-item" role="presentation">
       <button
@@ -13,7 +21,9 @@ function NavButton({ formData, activeForm, index, handleOnClickRemoveForm }) {
         aria-controls={`${formData.id}-tab-pane`}
         aria-selected="true"
       >
-        <span>Form {index + 1}</span>
+        <span onClick={() => handleActiveForm(formData.id)}>
+          Form {index + 1}
+        </span>
         <span
           onClick={() => handleOnClickRemoveForm(formData.id)}
           className="delete-form-btn"
